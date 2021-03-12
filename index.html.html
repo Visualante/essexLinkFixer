@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<h3>HeinOnline</h3>
+<p>Adds the Essex proxy to a public HeinOnline URL.</p>
+
+<input type="text" size="100" placeholder="Paste your HeinOnline URL here" id="heinOnlineInput">
+<p>Click the "Convert and copy" button to add the proxy to your URL.</n>No HeinOnline URL? Here's one: <br/>http://heinonline.org/HOL/Page?public=false&handle=hein.journals/ejlr13&id=380</p>
+
+<div class="tooltip">
+<button onclick="heinFunction()" onmouseout="outFunc()">
+  <span class="tooltiptext" id="heinTooltip">Copy to clipboard</span>
+  Convert and copy
+  </button>
+</div>
+
+<script>
+function heinFunction() {
+  var copyText = document.getElementById("heinOnlineInput");
+  var convertText = document.getElementById("heinOnlineInput").value;
+  convertText = convertText.replace("heinonline.org", "0-heinonline-org.serlib0.essex.ac.uk");
+  convertText = convertText.replace("http:", "https:");
+  heinOnlineInput.value = convertText;
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  var tooltip = document.getElementById("heinTooltip");
+  tooltip.innerHTML = "Copied: " + copyText.value;
+
+
+}
+
+function outFunc() {
+  var tooltip = document.getElementById("heinTooltip");
+  tooltip.innerHTML = "Convert and copy to clipboard";
+}
+</script>
+
+
+<h3>Westlaw</h3>
+<p>Adds the Essex proxy to a Westlaw URL.</p>
+
+<textarea rows="12" cols="100" placeholder="Paste your Westlaw URL here" id="westInput" placeholder="Paste your Westlaw URL here">
+</textarea>
+<p>Click the "Convert and copy" button to add the proxy to your URL.</n>No Westlaw URL? Here's one: <br/>
+http://intl.westlaw.com/Document/Ib0cff035d7c211e18b05fdf15589d8e8/View/FullText.html?navigationPath=Search%2Fv1%2Fresults%2Fnavigation%2Fi0ad7403700000176d868ecc88c823d95%3FNav%3DANALYTICAL%26fragmentIdentifier%3DIb0cff035d7c211e18b05fdf15589d8e8%26parentRank%3D0%26startIndex%3D1%26contextData%3D%2528sc.Search%2529%26transitionType%3DSearchItem&amp;listSource=Search&amp;listPageSource=cfce4368756c2bc821a4d5d3a7f3f4f7&amp;list=ANALYTICAL&amp;rank=1&amp;sessionScopeId=808fc1991eb7cf839687887eaf920febcf5e1af9afe7a93ff020fc75aa037c14&amp;originationContext=Search%20Result&amp;transitionType=SearchItem&amp;contextData=%28sc.Search%29</p>
+
+<div class="tooltip">
+<button onclick="westFunction()" onmouseout="outFunc()">
+  <span class="tooltiptext" id="westTooltip">Copy to clipboard</span>
+  Convert and copy
+  </button>
+</div>
+
+<script>
+function westFunction() {
+  var copyText = document.getElementById("westInput");
+  var convertText = document.getElementById("westInput").value;
+  var gatewayText = "https://signon.thomsonreuters.com/federation/UKF?entityID=https://idp0.essex.ac.uk/shibboleth&returnto=";
+  convertText = gatewayText.concat(convertText);
+  convertText = convertText.replace("http:", "https:");
+  westInput.value = convertText;
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  var tooltip = document.getElementById("westTooltip");
+  tooltip.innerHTML = "Copied: " + copyText.value;
+
+
+}
+
+function outFunc() {
+  var tooltip = document.getElementById("westTooltip");
+  tooltip.innerHTML = "Convert and copy to clipboard";
+}
+</script>
+<p>Verion 0.2 created 22/02/2021. Bugs, feedback or feature requests? Please mail <a href="mailto:d.spence@essex.ac.uk?subject=Reading list URL tool">Spence</a></p></br>Future plans: Drama Online support, logic to protect against double clicks on Westlaw URLs, make copy tool tips less obtrusive
+</body>
+</html>
