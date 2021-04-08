@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +44,46 @@
 </style>
 </head>
 <body>
+
+
+<h3>Digital oject Identifier (DOI)</h3>
+<p>Adds the Essex proxy to a DOI.</p>
+
+<input type="text" size="100" placeholder="Paste your DOI here" id="doiInput">
+<p>Click the "Convert and copy" button to add the proxy to your DOI.</n>No DOI? Here's one: 10.5040/9781408188125.00000040
+</p>
+
+<div class="tooltip">
+<button onclick="doiFunction()" onmouseout="outFunc()">
+  <span class="tooltiptext" id="doiTooltip">Copy to clipboard</span>
+  Convert and copy
+  </button>
+</div>
+
+<script>
+function doiFunction() {
+  var copyText = document.getElementById("doiInput");
+  var convertText = document.getElementById("doiInput").value;
+  var gatewayText = "https://0-doi-org.serlib0.essex.ac.uk/";
+  convertText = gatewayText.concat(convertText);
+  convertText = convertText.replace("http:", "https:");
+  doiInput.value = convertText;
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  var tooltip = document.getElementById("doiTooltip");
+  tooltip.innerHTML = "Copied: " + copyText.value;
+
+
+}
+
+function outFunc() {
+  var tooltip = document.getElementById("doiTooltip");
+  tooltip.innerHTML = "Convert and copy to clipboard";
+}
+</script>
+
+
 <h3>HeinOnline</h3>
 <p>Adds the Essex proxy to a public HeinOnline URL.</p>
 
@@ -116,6 +157,7 @@ function outFunc() {
   tooltip.innerHTML = "Convert and copy to clipboard";
 }
 </script>
-<p>Verion 0.2 created 22/02/2021. Bugs, feedback or feature requests? Please mail <a href="mailto:d.spence@essex.ac.uk?subject=Reading list URL tool">Spence</a></p></br>Future plans: Drama Online support, logic to protect against double clicks on Westlaw URLs, make copy tool tips less obtrusive
+
+<p>Verion 0.3 created 08/04/2021. Bugs, feedback or feature requests? Please mail <a href="mailto:d.spence@essex.ac.uk?subject=Reading list URL tool">Spence</a></p></br>Future plans: Remove trailing text from DOI URLs, merge code, logic to protect against double clicks on Westlaw URLs.
 </body>
 </html>
